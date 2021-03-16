@@ -5,18 +5,23 @@ export default {
     return {
       search_input: "",
       word_search: "java",
-      resultsSearch: [],
+      resultsFilter: [],
       loading: false,
     };
   },
   mounted() {
     console.log(data)
+    //calculate filter by age
+    this.resultsFilter=this.ageLimit(35);
+
   },
   methods: {
 
-    
-    ageMargin(){
-
+    //method for filter data with by age
+    ageLimit(maxValue){
+      const peopleLimitAge = data.filter(person => person.age >= maxValue);
+      console.log(peopleLimitAge)
+      return peopleLimitAge;
     },
 
     // search
