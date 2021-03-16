@@ -10,7 +10,6 @@ export default {
     };
   },
   mounted() {
-    console.log(data);
     //split and create firstname and lastname
     this.divideName(data);
     //calculate filter by age
@@ -19,15 +18,12 @@ export default {
   methods: {
     //divide name in firstname and lastname for visualization
     divideName(data) {
-      let names = [];
-      const nameDivide = data.filter(
+     data.filter(
         (person) => (person.firstname = person.name.split(" ")[0])
       );
-      const nameDivide2 = data.filter(
+       data.filter(
         (person) => (person.lastname = person.name.split(" ")[1])
       );
-
-      console.log("nameDivide", nameDivide);
     },
     //method for filter data with by age
     ageLimit(maxValue) {
