@@ -1,4 +1,4 @@
-import data from './people.json';
+import data from "./people.json";
 
 export default {
   data() {
@@ -10,18 +10,33 @@ export default {
     };
   },
   mounted() {
-    console.log(data)
+    console.log(data);
+    //split and create firstname and lastname
+    this.divideName(data);
     //calculate filter by age
-    this.resultsFilter=this.ageLimit(35);
-
+    this.resultsFilter = this.ageLimit(35);
   },
   methods: {
+    //divide name in firstname and lastname for visualization
+    divideName(data) {
+      let names = [];
+      const nameDivide = data.filter(
+        (person) => (person.firstname = person.name.split(" ")[0])
+      );
+      const nameDivide2 = data.filter(
+        (person) => (person.lastname = person.name.split(" ")[1])
+      );
 
+      console.log("nameDivide", nameDivide);
+    },
     //method for filter data with by age
-    ageLimit(maxValue){
-      const peopleLimitAge = data.filter(person => person.age >= maxValue);
-      console.log(peopleLimitAge)
+    ageLimit(maxValue) {
+      const peopleLimitAge = data.filter((person) => person.age >= maxValue);
+      console.log(peopleLimitAge);
       return peopleLimitAge;
+    },
+    showSalary() {
+      console.log("salary");
     },
 
     // search
