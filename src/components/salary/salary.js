@@ -25,7 +25,6 @@ export default {
     //method for filter data with by age
     ageLimit(maxValue) {
       const peopleLimitAge = data.filter((person) => person.age >= maxValue);
-      console.log(peopleLimitAge);
       return peopleLimitAge;
     },
 
@@ -34,18 +33,19 @@ export default {
       return new Promise((resolve) => {
         setTimeout(resolve, ms);
         this.resultsFilter[i].salary = Math.round(ms);
-        console.log(ms, this.resultsFilter[i]);
         if (i + 1 == this.resultsFilter.length) {
           //call for calculate average when finish
           this.showAverage();
         }
+      }).catch(function(err) {
+        console.log(err);
       });
     },
     // function that call delay with random number
     async printSalary() {
       this.average = 0;
       for (let i = 0; i < this.resultsFilter.length; i++) {
-        await this.delay(Math.random() * 1000, i); // wait
+        await this.delay(Math.random() * (1000 - 500 + 1) + 500, i); // wait
       }
     },
     //function for calculate average
@@ -54,7 +54,6 @@ export default {
         (avg, { salary }, _, { length }) => avg + salary / length,
         0
       );
-      console.log(this.average);
     },
   },
 };
