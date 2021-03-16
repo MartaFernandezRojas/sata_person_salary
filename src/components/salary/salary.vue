@@ -2,28 +2,40 @@
 <template>
 <div id="search">
     <div class="head">
+     <!--header-->
         <el-row>
-            <el-col :span="12" :offset="6">
+            <el-col :span="14" :offset="1">
                 <h1 class="title">Salary average</h1>
             </el-col>
-        </el-row>
+            <!--Button for calculate salary-->
+            <el-col :span="5" :offset="3" class="margin-top">
+                <el-button type="warning" @click="printSalary()">Show salary</el-button>
 
+            </el-col>
+        </el-row>
     </div>
     <el-row>
         <el-col :span="22" :offset="1">
             <h3 class="subtitle">Results</h3>
             <!--Result table-->
-            <el-table class="table" :data="resultsSearch" v-loading="loading">
-                <el-table-column prop="name" label="Name" class="title">
-                </el-table-column>
-                <el-table-column prop="html_url" label="URL" class="title">
+            <el-table class="margin-top" :data="resultsFilter">
+                <el-table-column prop="lastname" label="Name" class="title">
                     <template slot-scope="scope">
-                        <a target="_blank" class="link" :href="scope.row.html_url">{{scope.row.html_url}}</a>
+                        {{scope.row.lastname}}, {{scope.row.firstname}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="score" label="Score" class="title" align="center">
+                <el-table-column prop="age" label="Age" class="title">
+                </el-table-column>
+                <el-table-column prop="salary" label="Salary" class="title" align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.salary}} <span v-if="scope.row.salary!='calculating...'">€</span>
+                    </template>
                 </el-table-column>
             </el-table>
+
+        </el-col>
+        <el-col :span="24" :offset="19">
+            <span class="average" v-if="average!=0">AVG: {{Math.round(average)}}€</span>
         </el-col>
     </el-row>
 </div>

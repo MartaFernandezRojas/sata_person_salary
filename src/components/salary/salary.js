@@ -1,39 +1,59 @@
-import data from './people.json';
+import data from "./people.json";
 
 export default {
   data() {
     return {
-      search_input: "",
-      word_search: "java",
-      resultsSearch: [],
+      resultsFilter: [],
       loading: false,
+      average: 0,
     };
   },
   mounted() {
-    console.log(data)
+    this.average = 0;
+    //split and create firstname and lastname
+    this.divideName(data);
+    //calculate filter by age
+    this.resultsFilter = this.ageLimit(35);
   },
   methods: {
-
-    
-    ageMargin(){
-
+    //divide name in firstname and lastname for visualization
+    divideName(data) {
+      data.filter((person) => (person.firstname = person.name.split(" ")[0]));
+      data.filter((person) => (person.lastname = person.name.split(" ")[1]));
+      data.filter((person) => (person.salary = "calculating..."));
+    },
+    //method for filter data with by age
+    ageLimit(maxValue) {
+      const peopleLimitAge = data.filter((person) => person.age >= maxValue);
+      return peopleLimitAge;
     },
 
-    // search
-    searchValue() {
-      var self = this;
-      this.loading = true;
-      // api request
-      this.getSearchApi(this.search_input)
-        .then((res) => {
-          self.resultsSearch = res.data.items.splice(0, 10);
-          //off spinner
-          self.loading = false;
-        })
-        .catch((err) => {
-          //off spinner
-          self.loading = false;
-        });
+    //function delay with promise that asign salary
+    delay(ms, i) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+        this.resultsFilter[i].salary = Math.round(ms);
+        if (i + 1 == this.resultsFilter.length) {
+          //call for calculate average when finish
+          this.showAverage();
+        }
+      }).catch(function(err) {
+        console.log(err);
+      });
+    },
+    // function that call delay with random number
+    async printSalary() {
+      this.average = 0;
+      for (let i = 0; i < this.resultsFilter.length; i++) {
+        await this.delay(Math.random() * (1000 - 500 + 1) + 500, i); // wait
+      }
+    },
+    //function for calculate average
+    showAverage() {
+      this.average = Object.values(this.resultsFilter).reduce(
+        (avg, { salary }, _, { length }) => avg + salary / length,
+        0
+      );
     },
   },
 };
