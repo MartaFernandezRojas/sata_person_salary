@@ -1,0 +1,55 @@
+//variables
+$base-color: rgb(21, 113, 156);
+
+//mixins
+@mixin titles_size($prop) {
+  h1 {
+    font-size: $prop;
+  }
+  h2 {
+    font-size: $prop - 0.2;
+  }
+  h3 {
+    font-size: $prop - 0.5;
+  }
+}
+
+@mixin main_title {
+  color: white;
+  text-align: center;
+  margin-top: 5%;
+  font-weight: 200;
+  @include titles_size(5rem);
+  
+}
+
+//id and class
+#search {
+  .head {
+    background-color: $base-color;
+  }
+  .title {
+    @include main_title;
+  }
+  .subtitle{
+    @include titles_size(4rem);
+  }
+  .bar_search {
+    margin-top: 1%;
+    margin-bottom: 5%;
+  }
+  .el-input--prefix .el-input__inner {
+    border-radius: 20px;
+  }
+  .table {
+    margin-top: 2%;
+  }
+
+  .link {
+    color: $base-color;
+  }
+  .el-table__empty-text {
+    color: white;
+  }
+  font-family: "Open Sans", sans-serif;
+}
