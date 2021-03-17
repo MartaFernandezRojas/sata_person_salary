@@ -6,6 +6,7 @@ export default {
       resultsFilter: [],
       loading: false,
       average: 0,
+      promises: [],
     };
   },
   mounted() {
@@ -14,8 +15,21 @@ export default {
     this.divideName(data);
     //calculate filter by age
     this.resultsFilter = this.ageLimit(35);
+    this.calculateSalary();
   },
   methods: {
+    //call for create all promises in paralel
+    calculateSalary() {
+      for (let i in this.resultsFilter) {
+        this.resultsFilter[i].salary = "calculating...";
+        this.promises.push(this.api(this.resultsFilter[i]));
+      }
+      //check if promises have finished
+      Promise.all(this.promises).then((values) => {
+        this.showAverage();
+      });
+    },
+
     //divide name in firstname and lastname for visualization
     divideName(data) {
       data.filter((person) => (person.firstname = person.name.split(" ")[0]));
@@ -27,27 +41,25 @@ export default {
       const peopleLimitAge = data.filter((person) => person.age >= maxValue);
       return peopleLimitAge;
     },
-
-    //function delay with promise that asign salary
-    delay(ms, i) {
+    //function with promise to asign salary
+    asignSalary(person, delay) {
       return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-        this.resultsFilter[i].salary = Math.round(ms);
-        if (i + 1 == this.resultsFilter.length) {
-          //call for calculate average when finish
-          this.showAverage();
-        }
-      }).catch(function(err) {
-        console.log(err);
+        setTimeout(() => {
+          for (let i in this.resultsFilter) {
+            if (this.resultsFilter[i].name == person.name) {
+              resolve((this.resultsFilter[i].salary = Math.round(delay)));
+            }
+          }
+        }, delay);
       });
     },
-    // function that call delay with random number
-    async printSalary() {
-      this.average = 0;
-      for (let i = 0; i < this.resultsFilter.length; i++) {
-        await this.delay(Math.random() * (1000 - 500 + 1) + 500, i); // wait
-      }
+
+    //asyn function api, with delay/salary calculation
+    async api(person) {
+      let delay = Math.random() * (1000 - 500 + 1) + 500;
+      await this.asignSalary(person, delay);
     },
+
     //function for calculate average
     showAverage() {
       this.average = Object.values(this.resultsFilter).reduce(

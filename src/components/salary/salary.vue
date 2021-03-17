@@ -9,7 +9,7 @@
             </el-col>
             <!--Button for calculate salary-->
             <el-col :span="5" :offset="3" class="margin-top">
-                <el-button type="warning" @click="printSalary()">Show salary</el-button>
+                <el-button type="warning" @click="calculateSalary()">Refresh Salary</el-button>
 
             </el-col>
         </el-row>
