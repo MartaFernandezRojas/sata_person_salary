@@ -9,7 +9,7 @@
             <el-button class="button" type="primary" @click="calculateSalary()" icon="el-icon-refresh-right" circle></el-button>
         </div>
     </div>
-    <!--Responsive tabel-->
+    <!--Responsive table-->
     <table class="table_responsive">
         <thead>
             <tr>
