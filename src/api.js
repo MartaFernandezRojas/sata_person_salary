@@ -5,6 +5,8 @@ export default {
   },
 
   methods: {
-   
+    getSearchApi(word_search) {
+      return this.ajaxGet(word_search);
+    }
   }
 };

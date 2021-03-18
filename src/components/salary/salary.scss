@@ -1,5 +1,5 @@
 //variables
-$base-color: rgb(9, 55, 77);
+$base-color: rgb(21, 113, 156);
 
 //mixins
 @mixin titles_size($prop) {
@@ -16,117 +16,18 @@ $base-color: rgb(9, 55, 77);
 
 //id and class
 #search {
-  .title {
-    font-size: 1.5rem;
-    padding: 20px;
-  }
-  button {
-    margin: 20px 50px 0 0;
-  }
-
   .head {
     background-color: $base-color;
-    color: white;
-    display: flex;
-
-    justify-content: space-between;
+    color:white;
   }
-  .margin-top {
+  .margin-top{
     margin-top: 2%;
   }
-  .average {
-    font-size: 1.5rem;
+  .average{
+   font-size: 1.5rem;
     font-weight: bold;
-   
-  }
-  .avg {
-    text-align: right;
-    margin-right: 24%;
-    margin-top: 20px;
+    margin-left: -30px;
   }
 
   font-family: "Open Sans", sans-serif;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-/* Zebra striping */
-
-td,
-th {
-  padding: 6px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-td {
-  width: 30%;
-}
-
-@media only screen and (min-device-width: 300px) and (max-device-width: 724px) {
-  #search {
-    .head {
-      height: 80px;
-    }
-    .average {
-      font-size: 30px;
-    }
-
-    .table_responsive {
-      /* Force table to not be like tables anymore */
-      table,
-      thead,
-      tbody,
-      th,
-      td,
-      tr {
-        display: block;
-      }
-
-      /* Hide table headers (but not display: none;, for accessibility) */
-      thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      }
-
-      tr {
-        border: 1px solid #ccc;
-      }
-
-      td {
-        /* Behave  like a "row" */
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 50%;
-        font-size: 25px;
-      }
-
-      td:before {
-        /* Now like a table header */
-        position: absolute;
-        /* Top/left values mimic padding */
-        top: 6px;
-        left: 6px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-      }
-
-      /*
-	Label the data
-	*/
-      td:nth-of-type(1):before {
-        content: "Name";
-      }
-      td:nth-of-type(2):before {
-        content: "Age";
-      }
-      td:nth-of-type(3):before {
-        content: "Salary";
-      }
-    }
-  }
 }
