@@ -10,6 +10,7 @@ export default {
     };
   },
   mounted() {
+    this.loading=true;
     this.average = 0;
     //split and create firstname and lastname
     this.divideName(data);
@@ -20,12 +21,14 @@ export default {
   methods: {
     //call for create all promises in paralel
     calculateSalary() {
+      this.loading=true;
       for (let i in this.resultsFilter) {
         this.resultsFilter[i].salary = "calculating...";
         this.promises.push(this.api(this.resultsFilter[i]));
       }
       //check if promises have finished
       Promise.all(this.promises).then((values) => {
+        this.loading=false;
         this.showAverage();
       });
     },
